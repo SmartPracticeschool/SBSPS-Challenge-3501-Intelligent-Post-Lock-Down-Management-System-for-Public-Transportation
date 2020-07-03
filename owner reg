@@ -1,0 +1,240 @@
+[
+    {
+        "id": "550af4dc.e6b2fc",
+        "type": "ui_form",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "label": "",
+        "group": "5a015184.3f4ee",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Name",
+                "value": "name",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Vehicle Type(Bus/Taxi)",
+                "value": "type",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Vehicle Registration Number",
+                "value": "regno",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Address",
+                "value": "address",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Phone Number",
+                "value": "phone",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Email ID",
+                "value": "email",
+                "type": "email",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Password",
+                "value": "pwd",
+                "type": "password",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Confirm Password",
+                "value": "cnf_pwd",
+                "type": "password",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "name": "",
+            "type": "",
+            "regno": "",
+            "address": "",
+            "phone": "",
+            "email": "",
+            "pwd": "",
+            "cnf_pwd": ""
+        },
+        "payload": "",
+        "submit": "Create Account",
+        "cancel": "Reset",
+        "topic": "",
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "eded36ed.7e72b8",
+                "552c57dc.4266e8",
+                "d11a6e9e.7b085"
+            ]
+        ]
+    },
+    {
+        "id": "eded36ed.7e72b8",
+        "type": "function",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "func": "msg.payload={\n    OWNER_NAME:msg.payload.name,\n    TYPE:msg.payload.type,\n    REGNO:msg.payload.regno,\n    ADDRESS:msg.payload.address,\n    PHONE:msg.payload.phone,\n    EMAIL:msg.payload.email,\n    PWD:msg.payload.pwd\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "be0f8b89.7a30e8"
+            ]
+        ]
+    },
+    {
+        "id": "552c57dc.4266e8",
+        "type": "function",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "func": "if(msg.payload.pwd==msg.payload.cnf_pwd)\n{\n    msg.payload=\"Hey, \"+msg.payload.name+\"! Registration successful.\";\n}\nelse msg.payload=\"Passwords do not match.\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "2fbfc12f.ce390e"
+            ]
+        ]
+    },
+    {
+        "id": "2fbfc12f.ce390e",
+        "type": "ui_text",
+        "z": "7f205949.3a67a8",
+        "group": "c84fdd75.76709",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 700,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "be0f8b89.7a30e8",
+        "type": "dashDB out",
+        "z": "7f205949.3a67a8",
+        "dashDB": "cde27601.ecf0f8",
+        "service": "_ext_",
+        "table": "OWNER_DETAILS",
+        "name": "",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "2033bb63.e73ea4",
+        "type": "ui_toast",
+        "z": "7f205949.3a67a8",
+        "position": "dialog",
+        "displayTime": "10",
+        "highlight": "",
+        "sendall": false,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "",
+        "x": 630,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d11a6e9e.7b085",
+        "type": "function",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "func": "msg.payload=\"Registration Successful\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "2033bb63.e73ea4"
+            ]
+        ]
+    },
+    {
+        "id": "5a015184.3f4ee",
+        "type": "ui_group",
+        "z": "",
+        "name": "Register",
+        "tab": "6c52adaa.bd5a64",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "c84fdd75.76709",
+        "type": "ui_group",
+        "z": "",
+        "name": "Sign Up",
+        "tab": "9cb3ff71.7decf",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cde27601.ecf0f8",
+        "type": "dashDB",
+        "z": null,
+        "hostname": "dashdb-txn-sbox-yp-lon02-06.services.eu-gb.bluemix.net",
+        "db": "BLUDB",
+        "port": "50000",
+        "name": ""
+    },
+    {
+        "id": "6c52adaa.bd5a64",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Register your vehicle",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "9cb3ff71.7decf",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Passenger",
+        "icon": "dashboard",
+        "order": 7,
+        "disabled": false,
+        "hidden": true
+    }
+]
