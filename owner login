@@ -1,0 +1,244 @@
+[
+    {
+        "id": "7f205949.3a67a8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4cbd4409.44711c",
+        "type": "ui_form",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "label": "",
+        "group": "701f0d2f.ce5794",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Email",
+                "value": "email",
+                "type": "email",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Password",
+                "value": "password",
+                "type": "password",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "email": "",
+            "password": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "",
+        "topic": "",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "df40968f.761878",
+                "d457324c.48e27"
+            ]
+        ]
+    },
+    {
+        "id": "d457324c.48e27",
+        "type": "dashDB in",
+        "z": "7f205949.3a67a8",
+        "dashDB": "cde27601.ecf0f8",
+        "service": "Db2-so",
+        "query": "SELECT \"PWD\" FROM \"OWNER_DETAILS\" WHERE \"EMAIL\"=email",
+        "params": "",
+        "name": "",
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "1b6e1c21.d80c94"
+            ]
+        ]
+    },
+    {
+        "id": "df40968f.761878",
+        "type": "function",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "func": "global.set(\"password\",msg.payload.password);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 280,
+        "wires": [
+            [
+                "722f556c.914c4c"
+            ]
+        ]
+    },
+    {
+        "id": "1b6e1c21.d80c94",
+        "type": "function",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "func": "if(msg.payload=global.get(\"password\")){\n   msg.payload=true;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 200,
+        "wires": [
+            [
+                "d66f764b.959b38"
+            ]
+        ]
+    },
+    {
+        "id": "722f556c.914c4c",
+        "type": "debug",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 580,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "999eebe2.258d38",
+        "type": "ui_button",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "group": "701f0d2f.ce5794",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "REGISTER",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "{\"tab\":\"Register your vehicle\"}",
+        "payloadType": "json",
+        "topic": "",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "6a47e104.820d"
+            ]
+        ]
+    },
+    {
+        "id": "6a47e104.820d",
+        "type": "ui_ui_control",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "events": "all",
+        "x": 390,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d66f764b.959b38",
+        "type": "switch",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 200,
+        "wires": [
+            [
+                "fc5563fc.43378"
+            ]
+        ]
+    },
+    {
+        "id": "d425d2d0.4611a",
+        "type": "ui_ui_control",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "events": "all",
+        "x": 850,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fc5563fc.43378",
+        "type": "change",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Update Schedule\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 140,
+        "wires": [
+            [
+                "d425d2d0.4611a"
+            ]
+        ]
+    },
+    {
+        "id": "701f0d2f.ce5794",
+        "type": "ui_group",
+        "z": "",
+        "name": "Login",
+        "tab": "7ca0eabf.db2f34",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cde27601.ecf0f8",
+        "type": "dashDB",
+        "z": null,
+        "hostname": "dashdb-txn-sbox-yp-lon02-06.services.eu-gb.bluemix.net",
+        "db": "BLUDB",
+        "port": "50000",
+        "name": ""
+    },
+    {
+        "id": "7ca0eabf.db2f34",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Vehicle owners",
+        "icon": "",
+        "disabled": false,
+        "hidden": false
+    }
+]
