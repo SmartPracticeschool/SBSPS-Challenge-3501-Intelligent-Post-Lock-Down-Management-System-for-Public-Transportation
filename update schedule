@@ -1,0 +1,180 @@
+[
+    {
+        "id": "7f205949.3a67a8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "310d9520.239aea",
+        "type": "ui_form",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "label": "",
+        "group": "9ff72661.3f32f8",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Regno",
+                "value": "regno",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Phone",
+                "value": "pno",
+                "type": "number",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "source",
+                "value": "src",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "destination",
+                "value": "dest",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "time of arrival",
+                "value": "arri",
+                "type": "number",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "time of departure",
+                "value": "depart",
+                "type": "number",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Stop 1",
+                "value": "stop1",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Stop 2",
+                "value": "stop2",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Stop 3",
+                "value": "stop3",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Stop 4",
+                "value": "stop4",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Stop 5",
+                "value": "stop5",
+                "type": "text",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "regno": "",
+            "pno": "",
+            "src": "",
+            "dest": "",
+            "arri": "",
+            "depart": "",
+            "stop1": "",
+            "stop2": "",
+            "stop3": "",
+            "stop4": "",
+            "stop5": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "60b71aec.3e7554"
+            ]
+        ]
+    },
+    {
+        "id": "60b71aec.3e7554",
+        "type": "function",
+        "z": "7f205949.3a67a8",
+        "name": "",
+        "func": "msg.payload={\n    REGNO:msg.payload.regno,\n    PHONE:msg.payload.pno,\n    SOURCE:msg.payload.src,\n    DESTINATION:msg.payload.dest,\n    ARI:msg.payload.arri,\n    DEPART:msg.payload.depart,\n    STOP1:msg.payload.stop1,\n    STOP2:msg.payload.stop2,\n    STOP3:msg.payload.stop3,\n    STOP4:msg.payload.stop4,\n    STOP5:msg.payload.stop5\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "6cb34a7a.a72744"
+            ]
+        ]
+    },
+    {
+        "id": "6cb34a7a.a72744",
+        "type": "dashDB out",
+        "z": "7f205949.3a67a8",
+        "dashDB": "cde27601.ecf0f8",
+        "service": "Db2-so",
+        "table": "SCHED",
+        "name": "",
+        "x": 570,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "9ff72661.3f32f8",
+        "type": "ui_group",
+        "z": "",
+        "name": "",
+        "tab": "5f65fee4.84f42",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cde27601.ecf0f8",
+        "type": "dashDB",
+        "z": null,
+        "hostname": "dashdb-txn-sbox-yp-lon02-06.services.eu-gb.bluemix.net",
+        "db": "BLUDB",
+        "port": "50000",
+        "name": ""
+    },
+    {
+        "id": "5f65fee4.84f42",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Update Schedule",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
